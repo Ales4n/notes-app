@@ -1,7 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const path = require('path')
-const bodyparser = require('body-parser')
+const bodyParser = require('body-parser')
 const app = express()
 
 app.set('port', process.env.PORT || 3000)
@@ -12,9 +12,8 @@ app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
-app.get('/', (req,res) =>{
-    res.render()
-})
+//Routes
+app.use('/', require('./routes/index'))
 
 app.listen(app.get('port'), () =>{
     console.log(`Server on port ${app.get('port')}`)
