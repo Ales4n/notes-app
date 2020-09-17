@@ -1,10 +1,33 @@
- const express = require('express')
- const router = express.Router()
+module.exports = (app) => {
 
- router.get('/', (req,res) =>{
-     res.render('index', {tittle: 'Home'})
- })
- router.get('/new-entry', (req,res) =>{
-    res.render('new-entry', {tittle: 'New entry'})
-})
- module.exports = router
+    let entries = [];
+    app.locals.entries = entries;
+
+    app.get('/', (req, res) => {
+        res.render('index', {
+            title: 'Home'
+        });
+    });
+
+    app.get('/new-entry', (req, res) => {
+        res.render('new-entry', {
+            title: 'New entry'
+        });
+    });
+
+    app.post('/new-entry', (req, res) => {
+        if (!req.body.title || !req.body.body) {
+            res.send(400).send('Entradas deben tener un titulo y un cuerpo');
+        }
+
+        let newEntry = {
+            title: req.body.title,
+            content: req.body.body,
+            published: new Date()
+        };
+
+        entries.push(newEntry);
+
+        res.redirect('/');
+    });
+}

@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%=title%></title>
+  <%- include('partials/head') -%>
 </head>
+
 <body>
-    <%- include('partials/header') -%>
-    <h1><%=tittle%></h1>
+  <%- include('partials/header') -%>
+
+  <% if(entries.length){%>
+  <% entries.forEach(function(entry){%>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <%= entry.title%>
+      <div class="pull-right">
+        <%= entry.published%>
+      </div>
+    </div>
+    <div class="panel-body">
+      <%= entry.content%>
+    </div>
+  </div>
+  <% }) %>
+  <%}%>
 </body>
+
 </html>
